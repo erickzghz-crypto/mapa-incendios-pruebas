@@ -86,22 +86,18 @@
             100% { opacity: 1; transform: scale(1.3); }
         }
 
-        /* -----------------------------------------------------------
-           EL TRUCO ESTÁ AQUÍ EN EL CSS
-        ----------------------------------------------------------- */
-
         /* Contenedor principal con sombra y borde */
         .dashboard-container {
             width: 95%;
             max-width: 1400px;
             background: var(--card-bg);
             border-radius: 16px;
-            padding: 0; /* Importante: Sin padding */
+            padding: 0; 
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px var(--accent-glow);
             border: 1px solid #334155;
             margin-bottom: 2rem;
             animation: slideUp 0.8s ease-out;
-            overflow: hidden; /* Oculta lo que se salga de la tarjeta */
+            overflow: hidden; 
         }
 
         /* Nuevo contenedor que actúa como "cortadora" */
@@ -109,7 +105,6 @@
             position: relative;
             overflow: hidden;
             border-radius: 16px;
-            /* Esta es la altura VISIBLE final del mapa */
             height: 75vh;
         }
 
@@ -123,12 +118,10 @@
             top: 0;
             left: 0;
             width: 100%;
-            /* Hacemos que el mapa real sea un poco más alto (40px extra) */
-            /* para que la barra blanca quede fuera de la zona visible */
             height: calc(100% + 40px);
             border: none;
             display: block;
-            background: #000;
+            background: transparent; /* <--- Cambio aplicado aquí */
         }
 
         /* Pie de página */
