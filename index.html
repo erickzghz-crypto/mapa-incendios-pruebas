@@ -7,13 +7,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Paleta de colores Dark Mode */
         :root {
             --bg-color: #0f172a;
             --card-bg: #1e293b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --accent: #ef4444; /* Rojo emergencia */
+            --accent: #ef4444;
             --accent-glow: rgba(239, 68, 68, 0.4);
         }
 
@@ -27,11 +26,9 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            /* Fondo con un degradado radial sutil */
             background-image: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%);
         }
 
-        /* Barra de navegación superior */
         header {
             width: 100%;
             padding: 1.5rem 3rem;
@@ -58,7 +55,6 @@
             margin-top: 4px;
         }
 
-        /* Indicador de Estado (Puntito rojo parpadeante) */
         .status-badge {
             display: flex;
             align-items: center;
@@ -86,31 +82,19 @@
             100% { opacity: 1; transform: scale(1.3); }
         }
 
-        /* -----------------------------------------------------------
-           EL TRUCO ESTÁ AQUÍ EN EL CSS
-        ----------------------------------------------------------- */
-
-        /* Contenedor principal con sombra y borde */
+        /* Contenedor limpio, sin trucos de recorte */
         .dashboard-container {
             width: 95%;
             max-width: 1400px;
             background: var(--card-bg);
             border-radius: 16px;
-            padding: 0; /* Importante: Sin padding */
+            padding: 0;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px var(--accent-glow);
             border: 1px solid #334155;
             margin-bottom: 2rem;
             animation: slideUp 0.8s ease-out;
-            overflow: hidden; /* Oculta lo que se salga de la tarjeta */
-        }
-
-        /* Nuevo contenedor que actúa como "cortadora" */
-        .iframe-crop-wrapper {
-            position: relative;
             overflow: hidden;
-            border-radius: 16px;
-            /* Esta es la altura VISIBLE final del mapa */
-            height: 75vh;
+            height: 75vh; /* Altura fija para el contenedor */
         }
 
         @keyframes slideUp {
@@ -118,20 +102,15 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Iframe ajustado perfectamente al contenedor */
         iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
-            /* Hacemos que el mapa real sea un poco más alto (40px extra) */
-            /* para que la barra blanca quede fuera de la zona visible */
-            height: calc(100% + 40px);
+            height: 100%;
             border: none;
             display: block;
             background: #000;
         }
 
-        /* Pie de página */
         footer {
             margin-top: auto;
             padding: 1.5rem;
@@ -157,9 +136,7 @@
     </header>
     
     <div class="dashboard-container">
-        <div class="iframe-crop-wrapper">
-            <iframe title="incendios_hackaton" src="https://app.powerbi.com/view?r=eyJrIjoiNDFhMjNjZjgtNjU2OS00ZmRlLTkyOWEtMzk5MjljZjcyYTY0IiwidCI6ImY5NGJmNGQ5LTgwOTctNDc5NC1hZGY2LWE1NDY2Y2EyODU2MyIsImMiOjR9" allowFullScreen="true"></iframe>
-        </div>
+        <iframe title="incendios_hackaton" src="https://app.powerbi.com/reportEmbed?reportId=04418af9-9e8a-450f-80e9-3041567fef26&autoAuth=true&navContentPaneEnabled=false" allowFullScreen="true"></iframe>
     </div>
 
     <footer>
