@@ -3,81 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard de Incendios</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>Centro de Monitoreo - Hackaton 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Reseteo básico para quitar márgenes por defecto */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Paleta de colores Dark Mode */
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #ef4444; /* Rojo emergencia */
+            --accent-glow: rgba(239, 68, 68, 0.4);
         }
 
-        /* Estilo general de la página */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #eef2f5; /* Fondo gris claro y limpio */
-            color: #333;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            /* Fondo con un degradado radial sutil */
+            background-image: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%);
         }
 
-        /* Estilo del encabezado superior */
+        /* Barra de navegación superior */
         header {
             width: 100%;
-            background-color: #1a202c; /* Gris oscuro / Azul marino */
-            color: white;
-            text-align: center;
-            padding: 1.5rem 0;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
             margin-bottom: 2rem;
         }
 
-        header h1 {
-            font-size: 2.2rem;
-            font-weight: 600;
+        .header-titles h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .header-titles p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
             letter-spacing: 1px;
+            margin-top: 4px;
         }
 
-        header p {
-            font-size: 1rem;
-            color: #a0aec0;
-            margin-top: 5px;
+        /* Indicador de Estado (Puntito rojo parpadeante) */
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(239, 68, 68, 0.1);
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent);
         }
 
-        /* Contenedor tipo "tarjeta" para el mapa */
+        .pulse {
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent);
+            animation: blink 1.5s infinite alternate;
+        }
+
+        @keyframes blink {
+            0% { opacity: 0.3; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.3); }
+        }
+
+        /* Contenedor del Mapa con animación de entrada */
         .dashboard-container {
             width: 95%;
-            max-width: 1300px;
-            background: white;
-            border-radius: 12px; /* Esquinas redondeadas */
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15); /* Sombra 3D */
-            overflow: hidden; 
-            margin-bottom: 3rem;
+            max-width: 1400px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 1rem;
+            /* Sombra con un toque rojo muy ligero para combinar con los incendios */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px var(--accent-glow);
+            border: 1px solid #334155;
+            margin-bottom: 2rem;
+            animation: slideUp 0.8s ease-out;
         }
 
-        /* Ajustes del iframe para que llene la tarjeta */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         iframe {
             width: 100%;
             height: 75vh;
+            border-radius: 8px;
             border: none;
             display: block;
+            background: #000; /* Fondo negro mientras carga */
+        }
+
+        /* Pie de página */
+        footer {
+            margin-top: auto;
+            padding: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-align: center;
+            width: 100%;
+            border-top: 1px solid #334155;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Mapa de Riesgo de Incendios</h1>
-        <p>Sistema de Monitoreo y Análisis Espacial</p>
+        <div class="header-titles">
+            <h1>Sistema de Inteligencia Espacial</h1>
+            <p>Centro de Control - Riesgo de Incendios</p>
+        </div>
+        <div class="status-badge">
+            <div class="pulse"></div>
+            Monitoreo en Tiempo Real
+        </div>
     </header>
     
     <div class="dashboard-container">
         <iframe title="incendios_hackaton" src="https://app.powerbi.com/view?r=eyJrIjoiNDFhMjNjZjgtNjU2OS00ZmRlLTkyOWEtMzk5MjljZjcyYTY0IiwidCI6ImY5NGJmNGQ5LTgwOTctNDc5NC1hZGY2LWE1NDY2Y2EyODU2MyIsImMiOjR9" allowFullScreen="true"></iframe>
     </div>
+
+    <footer>
+        Desarrollado para el Hackaton 2026 | Equipo de Ingeniería
+    </footer>
 
 </body>
 </html>
