@@ -86,18 +86,31 @@
             100% { opacity: 1; transform: scale(1.3); }
         }
 
-        /* Contenedor del Mapa con animación de entrada */
+        /* -----------------------------------------------------------
+           EL TRUCO ESTÁ AQUÍ EN EL CSS
+        ----------------------------------------------------------- */
+
+        /* Contenedor principal con sombra y borde */
         .dashboard-container {
             width: 95%;
             max-width: 1400px;
             background: var(--card-bg);
             border-radius: 16px;
-            padding: 1rem;
-            /* Sombra con un toque rojo muy ligero para combinar con los incendios */
+            padding: 0; /* Importante: Sin padding */
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px var(--accent-glow);
             border: 1px solid #334155;
             margin-bottom: 2rem;
             animation: slideUp 0.8s ease-out;
+            overflow: hidden; /* Oculta lo que se salga de la tarjeta */
+        }
+
+        /* Nuevo contenedor que actúa como "cortadora" */
+        .iframe-crop-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            /* Esta es la altura VISIBLE final del mapa */
+            height: 75vh;
         }
 
         @keyframes slideUp {
@@ -106,12 +119,16 @@
         }
 
         iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 75vh;
-            border-radius: 8px;
+            /* Hacemos que el mapa real sea un poco más alto (40px extra) */
+            /* para que la barra blanca quede fuera de la zona visible */
+            height: calc(100% + 40px);
             border: none;
             display: block;
-            background: #000; /* Fondo negro mientras carga */
+            background: #000;
         }
 
         /* Pie de página */
@@ -140,7 +157,9 @@
     </header>
     
     <div class="dashboard-container">
-        <iframe title="incendios_hackaton" src="https://app.powerbi.com/view?r=eyJrIjoiNDFhMjNjZjgtNjU2OS00ZmRlLTkyOWEtMzk5MjljZjcyYTY0IiwidCI6ImY5NGJmNGQ5LTgwOTctNDc5NC1hZGY2LWE1NDY2Y2EyODU2MyIsImMiOjR9" allowFullScreen="true"></iframe>
+        <div class="iframe-crop-wrapper">
+            <iframe title="incendios_hackaton" src="https://app.powerbi.com/view?r=eyJrIjoiNDFhMjNjZjgtNjU2OS00ZmRlLTkyOWEtMzk5MjljZjcyYTY0IiwidCI6ImY5NGJmNGQ5LTgwOTctNDc5NC1hZGY2LWE1NDY2Y2EyODU2MyIsImMiOjR9" allowFullScreen="true"></iframe>
+        </div>
     </div>
 
     <footer>
